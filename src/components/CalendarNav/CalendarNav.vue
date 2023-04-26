@@ -78,6 +78,7 @@ export default {
   props: {
     value: { type: Object, default: () => ({ month: 0, year: 0 }) },
     validator: { type: Function, default: () => () => true },
+    buddhist: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -96,8 +97,10 @@ export default {
     },
     title() {
       return this.monthMode
-        ? this.yearIndex
-        : `${this.firstYear} - ${this.lastYear}`;
+        ? this.yearIndex + (this.buddhist ? 543 : 0)
+        : `${this.firstYear + (this.buddhist ? 543 : 0)} - ${
+            this.lastYear + (this.buddhist ? 543 : 0)
+          }`;
     },
     monthItems() {
       return this.getMonthItems(this.yearIndex);
@@ -213,11 +216,12 @@ export default {
           enabled = this.validator({ month, year });
           if (enabled) break;
         }
+        const y = year + (this.buddhist ? 543 : 0);
         items.push({
           year,
           id: year,
-          label: year,
-          ariaLabel: year,
+          label: y,
+          ariaLabel: y,
           isActive: year === this.year,
           isCurrent: year === thisYear,
           isDisabled: !enabled,

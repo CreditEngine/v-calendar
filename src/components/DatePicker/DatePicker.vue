@@ -114,6 +114,7 @@ export default {
           onDaykeydown: this.onDayKeydown,
           onDaymouseenter: this.onDayMouseEnter,
           ref: 'calendar',
+          buddhist: this.buddhist,
         },
         {
           ...this.$slots,
@@ -185,6 +186,10 @@ export default {
     selectAttribute: Object,
     attributes: Array,
     validHours: [Object, Array, Function],
+    buddhist: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
